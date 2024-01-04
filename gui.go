@@ -18,7 +18,8 @@ func UserWindow() {
     window := app.NewWindow("Converter")
     window.Resize(fyne.NewSize(500,250))
 
-    result := widget.NewLabel("")
+    result := canvas.NewText("", color.White)
+    result.TextSize = 18
 
     action := func(input string) {
         if isInputString(input) {
@@ -26,21 +27,21 @@ func UserWindow() {
                 numeral := strings.ToUpper(input)
                 romanInt := fmt.Sprint(RomanToInt(numeral))
                 if romanInt == "0" {
-                    result.SetText("Input text in incorrect format.")
+                    result.Text = "Input text in incorrect format."
                 } else {
-                    result.SetText(romanInt)
+                    result.Text = romanInt
                 }
             } else {
-                result.SetText("Roman Numeral format doesn't allow four letters in a row.")
+                result.Text = "Roman Numeral format doesn't allow four letters in a row."
             }
         } else {
             num, _ := strconv.Atoi(input)
             if num < 1 {
-                result.SetText("Roman Numerals doesn't exist for 0 or negative values.")
+                result.Text = "Roman Numerals doesn't exist for 0 or negative values."
             } else if num > 3999 {
-                result.SetText("Input number too big. Largest Roman Numeral is 3999.")
+                result.Text = "Input number too big. Largest Roman Numeral is 3999."
             } else {
-                result.SetText(IntToRoman(num))
+                result.Text = IntToRoman(num)
             }
         }
     }
