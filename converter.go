@@ -1,9 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
-
 type RomanNumeral string
 
 const (
@@ -26,26 +22,30 @@ var RomanIntMap = map[RomanNumeral]int {
     M: 1000,
 }
 
-func main() {
-    test := romanToInt("XXX")
-    test2 := intToRoman(1988)
-    fmt.Println(test, test2)
-}
-
-func romanToInt(num string) int {
+func RomanToInt(num string) int {
     conversion := 0
+    if len(num) == 0 {
+        return conversion
+    }
     for i := 0; i < len(num)-1; i++ {
-        if RomanIntMap[RomanNumeral(string(num[i]))] < RomanIntMap[RomanNumeral(string(num[i+1]))] {
-            conversion -= RomanIntMap[RomanNumeral(string(num[i]))]
+        currentValue := RomanIntMap[RomanNumeral(string(num[i]))]
+        nextValue := RomanIntMap[RomanNumeral(string(num[i+1]))]
+
+        if currentValue == 0 {
+            return 0
+        } else if i == len(num)-2 && nextValue == 0 {
+            return 0
+        } else if currentValue < nextValue {
+            conversion -= currentValue
         } else {
-            conversion += RomanIntMap[RomanNumeral(string(num[i]))] 
+            conversion += currentValue
         }
     }
     conversion += RomanIntMap[RomanNumeral(string(num[len(num)-1]))]
     return conversion
 }
 
-func intToRoman (num int) string {
+func IntToRoman (num int) string {
     placeThousand := (num / 1000) % 10
     placeHundred := (num / 100) % 10
     placeTen := (num / 10) % 10
