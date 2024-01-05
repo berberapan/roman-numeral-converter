@@ -24,7 +24,7 @@ func UserWindow() {
     action := func(input string) {
         if !isInputString(input) {
             num, _ := strconv.Atoi(input)
-            if num < 1 || num > 3999 {
+            if !IsValueInRange(num) {
                 result.Text = "Roman Numerals smallest value is 1 and biggest 3999."
             } else {
                 result.Text = IntToRoman(num)
@@ -39,16 +39,19 @@ func UserWindow() {
 
         numeral := strings.ToUpper(input)
         romanInt := fmt.Sprint(RomanToInt(numeral))
+        correctFormat := IntToRoman(RomanToInt(numeral))
 
         if romanInt == "0" {
             result.Text = "Input text in incorrect format."
             return
         }
 
-        if numeral == IntToRoman(RomanToInt(numeral)) {
+        if numeral == correctFormat {
             result.Text = romanInt
+        } else if !IsValueInRange(RomanToInt(numeral)) {
+            result.Text = fmt.Sprintf("Value too big. That order would be %s, if allowed.", romanInt)
         } else {
-            result.Text = fmt.Sprintf("%s. Correct format is %s", romanInt, IntToRoman(RomanToInt(numeral)))
+            result.Text = fmt.Sprintf("%s. Correct format is %s", romanInt, correctFormat)
         }
     }
 
@@ -100,3 +103,4 @@ func isStringValid(input string) bool {
     }
     return true
 }
+

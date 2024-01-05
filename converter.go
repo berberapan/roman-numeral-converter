@@ -44,17 +44,20 @@ func RomanToInt(num string) int {
 }
 
 func IntToRoman (num int) string {
-    placeThousand := (num / 1000) % 10
-    placeHundred := (num / 100) % 10
-    placeTen := (num / 10) % 10
-    placeOne := num % 10
+    if IsValueInRange(num) {
+        placeThousand := (num / 1000) % 10
+        placeHundred := (num / 100) % 10
+        placeTen := (num / 10) % 10
+        placeOne := num % 10
 
-    numeral := getStringValue(placeThousand, 3) + 
-               getStringValue(placeHundred, 2) +
-               getStringValue(placeTen, 1) + 
-               getStringValue(placeOne, 0)
+        numeral := getStringValue(placeThousand, 3) + 
+                   getStringValue(placeHundred, 2) +
+                   getStringValue(placeTen, 1) + 
+                   getStringValue(placeOne, 0)
 
-    return numeral 
+        return numeral 
+    }
+    return ""
 }
 
 func getStringValue(value int, place int) string {
@@ -75,4 +78,11 @@ func getStringValue(value int, place int) string {
         default:
             return ""
     }
+}
+
+func IsValueInRange(num int) bool {
+    if num < 1 || num > 3999 {
+        return false
+    }
+    return true
 }
