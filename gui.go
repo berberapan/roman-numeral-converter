@@ -29,17 +29,19 @@ func UserWindow() {
                 if romanInt == "0" {
                     result.Text = "Input text in incorrect format."
                 } else {
-                    result.Text = romanInt
+                    if numeral == IntToRoman(RomanToInt(numeral)) {
+                        result.Text = romanInt
+                    } else {
+                        result.Text = fmt.Sprintf("%s. Correct format is %s", romanInt, IntToRoman(RomanToInt(numeral)))
+                    }
                 }
             } else {
                 result.Text = "Roman Numeral format doesn't allow four letters in a row."
             }
         } else {
             num, _ := strconv.Atoi(input)
-            if num < 1 {
-                result.Text = "Roman Numerals doesn't exist for 0 or negative values."
-            } else if num > 3999 {
-                result.Text = "Input number too big. Largest Roman Numeral is 3999."
+            if num < 1 || num > 3999 {
+                result.Text = "Roman Numerals smallest value is 1 and biggest 3999."
             } else {
                 result.Text = IntToRoman(num)
             }

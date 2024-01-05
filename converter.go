@@ -31,9 +31,7 @@ func RomanToInt(num string) int {
         currentValue := RomanIntMap[RomanNumeral(string(num[i]))]
         nextValue := RomanIntMap[RomanNumeral(string(num[i+1]))]
 
-        if currentValue == 0 {
-            return 0
-        } else if i == len(num)-2 && nextValue == 0 {
+        if currentValue == 0 || (i == len(num)-2 && nextValue == 0) {
             return 0
         } else if currentValue < nextValue {
             conversion -= currentValue
